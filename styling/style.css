@@ -1,6 +1,18 @@
 p{
-	color: red;
+	color:#000;
 }
-p{
-	color:red;
+#header3-u{
+	margin-top:4.5rem;
+}
+#buttons1-t{
+	margin-top: 4.5rem;
+}
+.mbr-section__container--middle{
+	padding-top:4rem;
+}
+.mbr-section-nopadding{
+	padding-bottom: 5rem;
+}
+h3{
+	color:#000;
 }
