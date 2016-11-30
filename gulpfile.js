@@ -23,7 +23,7 @@ var gulp = require('gulp'),
 			}
 		});
 
-		watch('index.html', function(){
+		watch('views/index.html', function(){
 			refresh.reload();
 		});
 
