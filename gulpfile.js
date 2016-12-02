@@ -5,7 +5,8 @@ var gulp = require('gulp'),
 	nested = require('postcss-nested'),
 	variable = require('postcss-simple-vars'),
 	autoprefixer = require('autoprefixer'),
-	refresh = require('browser-sync').create();
+	refresh = require('browser-sync').create(),
+	nunjucksrender = require('gulp-nunjucks-render');
 
 
 	gulp.task('style', function(){
@@ -15,7 +16,16 @@ var gulp = require('gulp'),
 	});
 
 
-	gulp.task('watch', function(){
+	gulp.task('nunjucks', function(){
+		return gulp.src('views/**/*.html')
+		.pipe(nunjucksrender({
+			path:['templates']
+			}))
+		.pipe(gulp.dest('app'));
+		});
+
+
+	gulp.task('watch', ['nunjucks'], function(){
 		refresh.init({
 			notify:false,
 			server:{
