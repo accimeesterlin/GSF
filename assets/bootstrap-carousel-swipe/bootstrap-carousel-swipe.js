@@ -1,4 +1,4 @@
-/* source: https://github.com/avinoamr/bootstrap-carousel-swipe */
+/* Original source: https://github.com/avinoamr/bootstrap-carousel-swipe */
 
 +function ($) {
     'use strict';

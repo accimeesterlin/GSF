@@ -140,7 +140,49 @@
             }
         });
 
-		// .mbr-fixed-top
+
+        // .mbr-parallax-background
+        if ($.fn.jarallax && !$.isMobile()) {
+            $(document).on('destroy.parallax', function(event) {
+                $(event.target).outerFind('.mbr-parallax-background')
+                    .jarallax('destroy')
+                    .css('position', '');
+            });
+            $(document).on('add.cards change.cards', function(event) {
+                $(event.target).outerFind('.mbr-parallax-background')
+                    .jarallax({
+                        speed: 0.6
+                    })
+                    .css('position', 'relative');
+            });
+
+            if ($('html').hasClass('is-builder')) {
+                $(document).on('add.cards', function(event) {
+                    setTimeout(function() {
+                        $(window).trigger('update.parallax');
+                    }, 0);
+                });
+            }
+
+            $(window).on('update.parallax', function(event) {
+                var $jarallax = $('.mbr-parallax-background');
+
+                $jarallax.jarallax('coverImage');
+                $jarallax.jarallax('clipContainer');
+                $jarallax.jarallax('onScroll');
+            });
+        }
+
+        // .mbr-social-likes
+        if ($.fn.socialLikes){
+            $(document).on('add.cards', function(event){
+                $(event.target).outerFind('.mbr-social-likes:not(.mbr-added)').on('counter.social-likes', function(event, service, counter){
+                    if (counter > 999) $('.social-likes__counter', event.target).html(Math.floor(counter / 1000) + 'k');
+                }).socialLikes({initHtml : false});
+            });
+        }
+
+        // .mbr-fixed-top
         var fixedTopTimeout, scrollTimeout, prevScrollTop = 0, fixedTop = null, isDesktop = !$.isMobile();
         $(window).scroll(function(){
             if (scrollTimeout) clearTimeout(scrollTimeout);
@@ -408,6 +450,29 @@
         }
     }
 
+    // Scroll to Top Button
+    $(document).ready(function() {
+    if ($('.mbr-arrow-up').length) {
+        var $scroller = $('#scrollToTop'),
+            $main = $('body,html'),
+            $window = $(window);
+        $scroller.css('display', 'none');
+        $window.scroll(function () {
+        if ($(this).scrollTop() > 0) {
+            $scroller.fadeIn();
+        } else {
+            $scroller.fadeOut();
+        }
+        });
+        $scroller.click(function() {
+            $main.animate({
+                scrollTop: 0
+            }, 400);
+            return false;
+        });
+    }
+    });
+
     //Fix menu only for the Opera Mini
     var isOperaMini = (navigator.userAgent.indexOf('Opera Mini') > -1);
     if(isOperaMini){
@@ -423,7 +488,7 @@
         var e = document.createElement("section");
         e.id = "top-1";
         e.className = "engine";
-        e.innerHTML = '<a href="#">text</a>;
+        e.innerHTML = '<a href="http://gsfhaiti.org">http://gsfhaiti.org</a> gsf';
         document.body.insertBefore(e, document.body.childNodes[0]);
     }
 }();
